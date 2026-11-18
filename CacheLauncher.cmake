@@ -37,7 +37,7 @@ function(cmake_utils_configure_cache_launcher)
     file(MAKE_DIRECTORY "${_sccache_cache_dir}")
     set(ENV{SCCACHE_DIR} "${_sccache_cache_dir}")
     set(_cache_launcher
-      "${CMAKE_COMMAND}" -E env "SCCACHE_DIR=${_sccache_cache_dir}" "--unset=CARGO_INCREMENTAL" "${_cache_executable}")
+      "${CMAKE_COMMAND}" -E env "SCCACHE_DIR=${_sccache_cache_dir}" "CARGO_INCREMENTAL=0" "${_cache_executable}")
     message(STATUS "Using sccache: ${_cache_executable}")
     message(STATUS "sccache cache directory: ${_sccache_cache_dir}")
   else()
