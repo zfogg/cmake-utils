@@ -46,7 +46,8 @@ function(cmake_utils_configure_cache_launcher)
   endif()
 
   foreach(_language C CXX OBJC OBJCXX)
-    if(NOT CMAKE_${_language}_COMPILER_LAUNCHER)
+    if(NOT CMAKE_${_language}_COMPILER_LAUNCHER OR
+       (_cache_tool STREQUAL "sccache" AND CMAKE_${_language}_COMPILER_LAUNCHER MATCHES "ccache"))
       set(CMAKE_${_language}_COMPILER_LAUNCHER "${_cache_launcher}" CACHE STRING
           "${_language} compiler cache launcher" FORCE)
     endif()
