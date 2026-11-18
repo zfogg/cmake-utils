@@ -54,10 +54,10 @@ function(cmake_utils_configure_cache_launcher)
       cmake_policy(SET CMP0141 NEW)
     endif()
     set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
-        "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>" CACHE STRING
+        "$<$<CONFIG:Debug,Dev,RelWithDebInfo>:Embedded>" CACHE STRING
         "Use embedded MSVC debug information for compiler caching" FORCE)
   elseif(MSVC)
-    foreach(_config DEBUG RELEASE RELWITHDEBINFO)
+    foreach(_config DEBUG DEV RELEASE RELWITHDEBINFO)
       string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_${_config} "${CMAKE_C_FLAGS_${_config}}")
       string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_${_config} "${CMAKE_CXX_FLAGS_${_config}}")
       set(CMAKE_C_FLAGS_${_config} "${CMAKE_C_FLAGS_${_config}}" CACHE STRING "" FORCE)
