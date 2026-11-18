@@ -36,15 +36,18 @@ function(cmake_utils_configure_cache_launcher)
     endif()
     file(MAKE_DIRECTORY "${_sccache_cache_dir}")
     set(ENV{SCCACHE_DIR} "${_sccache_cache_dir}")
+    set(_cache_launcher
+      "${CMAKE_COMMAND}" -E env "SCCACHE_DIR=${_sccache_cache_dir}" "${_cache_executable}")
     message(STATUS "Using sccache: ${_cache_executable}")
     message(STATUS "sccache cache directory: ${_sccache_cache_dir}")
   else()
+    set(_cache_launcher "${_cache_executable}")
     message(STATUS "Using ccache: ${_cache_executable}")
   endif()
 
   foreach(_language C CXX)
     if(NOT CMAKE_${_language}_COMPILER_LAUNCHER)
-      set(CMAKE_${_language}_COMPILER_LAUNCHER "${_cache_executable}" CACHE FILEPATH
+      set(CMAKE_${_language}_COMPILER_LAUNCHER "${_cache_launcher}" CACHE STRING
           "${_language} compiler cache launcher" FORCE)
     endif()
   endforeach()
