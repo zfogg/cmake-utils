@@ -45,7 +45,7 @@ function(cmake_utils_configure_cache_launcher)
     message(STATUS "Using ccache: ${_cache_executable}")
   endif()
 
-  foreach(_language C CXX)
+  foreach(_language C CXX OBJC OBJCXX)
     if(NOT CMAKE_${_language}_COMPILER_LAUNCHER)
       set(CMAKE_${_language}_COMPILER_LAUNCHER "${_cache_launcher}" CACHE STRING
           "${_language} compiler cache launcher" FORCE)
